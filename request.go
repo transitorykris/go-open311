@@ -55,9 +55,10 @@ const (
 	Garbage
 )
 
+// PostServiceRequest creates a new service request
 // loc is lat/long or address_string or address_id
 // attr is an array of key/values
-func (c *Client) postServiceRequest(code string, reqType int, req ServiceRequest) (ServiceRequestCreation, error) {
+func (c *Client) PostServiceRequest(code string, reqType int, req ServiceRequest) (ServiceRequestCreation, error) {
 	var r []ServiceRequestCreation
 
 	v, err := query.Values(req)
@@ -98,10 +99,11 @@ type ServiceRequestID struct {
 	Token string `json:"token"`
 }
 
+// GetServiceRequestID returns a service request ID given a token
 // XXX SF311 uses the token as the request ID
 // XXX this endpoint does not return the correct format
 // http://wiki.open311.org/GeoReport_v2/#get-service_request_id-from-a-token
-func (c *Client) getServiceRequestID(token string) (string, error) {
+func (c *Client) GetServiceRequestID(token string) (string, error) {
 	var id ServiceRequestID
 	getURL := fmt.Sprintf("%s/tokens/%s.json", c.url, token)
 	err := c.get(getURL, &id)
@@ -134,11 +136,13 @@ type ServiceRequestResponse struct {
 	Location
 }
 
-func (c *Client) getServiceRequests(opts ServiceRequestOpts) ([]ServiceRequestResponse, error) {
+// GetServiceRequests returns all service requests in the jurisdiction's database
+func (c *Client) GetServiceRequests(opts ServiceRequestOpts) ([]ServiceRequestResponse, error) {
 	return []ServiceRequestResponse{}, nil
 }
 
-func (c *Client) getServiceRequest(id string) (ServiceRequestResponse, error) {
+// GetServiceRequest returns details for a specific service request
+func (c *Client) GetServiceRequest(id string) (ServiceRequestResponse, error) {
 	var s []ServiceRequestResponse
 	if err := c.get(fmt.Sprintf("/requests/%s.json", id), &s); err != nil {
 		return ServiceRequestResponse{}, err

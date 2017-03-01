@@ -47,9 +47,10 @@ type KeyValue struct {
 	Name string `json:"name"`
 }
 
+// GetServiceDefinition returns details about a type of service request
 // This call is only necessary if the Service selected has metadata set as true from the GET Services
 // response
-func (c *Client) getServiceDefinition(code string) (ServiceDefinition, error) {
+func (c *Client) GetServiceDefinition(code string) (ServiceDefinition, error) {
 	var d ServiceDefinition
 	if err := c.get(fmt.Sprintf("/services/%s.json", code), &d); err != nil {
 		return d, err
