@@ -55,6 +55,9 @@ const (
 	Garbage
 )
 
+// Cleanup is the service code for cleaning things in SF
+const Cleanup = "518d5892601827e3880000c5"
+
 // PostServiceRequest creates a new service request
 // loc is lat/long or address_string or address_id
 // attr is an array of key/values
