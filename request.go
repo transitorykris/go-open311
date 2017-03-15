@@ -74,11 +74,11 @@ func (c *Client) PostServiceRequest(code string, reqType int, req ServiceRequest
 	var form string
 	switch reqType {
 	case Poop:
-		form = v.Encode() + "&attribute[request_type]=Human_waste_or_urine"
+		form = v.Encode() + "&attribute[request_type][]=Human_waste_or_urine"
 	case Needles:
-		form = v.Encode() + "&attribute[request_type]=Needles_less_than_20"
+		form = v.Encode() + "&attribute[request_type][]=Needles_less_than_20"
 	case Garbage:
-		form = v.Encode() + "&attribute[request_type]=Other_loose_garbage_debris_yard_waste"
+		form = v.Encode() + "&attribute[request_type][]=Other_loose_garbage_debris_yard_waste"
 	}
 	formBody := strings.NewReader(form)
 	resp, err := http.Post(c.url+"/requests.json", "application/x-www-form-urlencoded", formBody)
